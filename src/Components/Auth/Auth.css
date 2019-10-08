@@ -1,0 +1,42 @@
+.register-banner {
+    height: 50vh;
+    width: 100vw;
+    background: url('https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/zz409b4c4c.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-style: italic;
+    font-style: bold;
+}
+
+.registration-box {
+    height: 40vh;
+    width: 250px;
+    background: rgba(235, 133, 133, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 100px;
+    border-radius: 20px;
+}
+
+
+.registration-box input {
+    width: 175px;
+    height: 20px;
+    background-image: linear-gradient(rgb(199, 199, 255), rgb(255, 255, 182), rgb(197, 255, 197));
+    display: flex;
+    align-self: center;
+    font-size: 20px;
+}
+
+.btn-register {
+    background: rgb(102, 21, 21);
+    width: 180px;
+    align-self: center;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+}

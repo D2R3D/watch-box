@@ -1,0 +1,65 @@
+
+.login-nav{
+    height: 60px;
+    width: 100vw;
+    background: rgb(255, 201, 201);
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+
+.nav-button-container {
+    display: flex;
+    justify-content: flex-start;
+    height:30px;
+    margin-left: 100px;
+    padding: 10px;
+}
+
+.nav-button-container input {
+    font-size: 20px;
+}
+
+
+.logged-in  p {
+    font-size: 30px;
+    
+}
+
+.logged-in {
+    height: 60px;
+    width: 100vw;
+    background: rgb(253, 178, 178);
+
+
+} 
+
+.user-nav-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    
+
+}
+
+.user-nav-info img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    
+}
+
+.prof-img:hover{
+    height: 55px;
+    width: 55px;
+
+}
+
+.btn-logout{
+    height: 30px;
+    width: 60px;
+    margin-top: 10px;
+    border-radius: 5px;
+    align-self: flex-end;
+}
