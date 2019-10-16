@@ -1,51 +1,91 @@
 import React, { Component } from "react";
-import { updateUser } from "../../ducks/reducer";
+import {updateUser, } from "../../ducks/reducer";
 import { connect } from "react-redux";
+import { withRouter, Link } from "react-router-dom";
+import "./Profile.css";
+import axios from 'axios'
+
 
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: '',
-      profile_pic: '',
-      aboutMe: "",
-      seen: false,
-      haventSeen: true
-    };
+    this.state ={
+        wantToWatch: true,
+        finishedWatching: false
+    }
   }
+//  componentDidMount() {
+//      this.getUser()
+//  }
 
-  handleChange = (e, key) => {
-    this.setState({
-      [key]: e.target.value
-    });
-  };
+ getUser =() => {
+     const {user} = this.state
+     axios.get('/auth/users', user).then(response =>{
+         this.setState({user: response.data})
+     })
+ }
 
-//   profileChange =() => {
-//       const {profile_img} = this.props.profile_pic
-//       this.setState({profile_pic: `https://robohash.org/${this.props.username}`})
-//   }
+    handleChange = (e, key) => {
+        this.setState({
+          [key]: e.target.value
+        });
+      };
 
-  render() {
-    return (
-      <div>
-        <div>
-          <img src={this.props.profile_pic} alt='profile-img' ></img>
-          <p>{this.props.username}</p>
+    
+      handleWatchList = () => {
+    
+      }
 
-              <input
-                value={this.state.username}
-                placeholder="Edit Username"
-                onChange={e => this.handleChange(e, "username")}
-              />
-            
+      handleFinishedWatching = () =>{
+
+      }
+
+
+
+
+    render() {
+        return(
+            <div>
+                <div> 
+                    {this.props.user ? (
+                        <div>
+                            <h1> {this.props.user.user.username}</h1>
+                            <p>{this.props.about_me}</p>
+                          <div>
+                          <img src={this.props.user.user.profile_pic} alt='prof-img'></img>
+
+                            <input  type ='text'
+                                    placeholder='Interests'
+                                   ></input>
+
+                <Link to='/EditProfile'> <button>Edit Profile</button></Link>
+                        </div>
+                        </div>
+                    ) : (
+                   null
         
-        </div>
+                    )}
+                </div>
+          
 
-        <div></div>
-      </div>
-    );
-  }
+                
+            </div>
+
+        )
+        
+    }
+
 }
 
-export default connect(updateUser)(Profile);
+function mapStateToProps(reduxState) {
+  const { user } = reduxState.reducer;
+  return { user };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { updateUser,  }
+  )(Profile)
+);

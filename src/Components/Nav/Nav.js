@@ -13,7 +13,6 @@ class Nav extends Component {
     this.state = {
       email: "",
       password: "",
-      user: null
     };
     this.logout = this.logout.bind(this);
   }
@@ -44,8 +43,9 @@ class Nav extends Component {
     }
   };
 
+
   logout() {
-    axios.post("/auth/logout/").then(res => {
+    axios.delete("/auth/logout/").then(res => {
       this.props.updateUser(null);
       this.props.history.push('/')
       swal.fire(res.data.message)
@@ -58,10 +58,10 @@ class Nav extends Component {
       <div className="logged-in">
            {this.props.user ? (
             <div className='user-nav-info'>
-               <Link to='/profile'> <img className='prof-img' src={this.props.user.user.profile_pic} alt='prof-pic'/></Link> 
+               <Link to='/profile'><img className='prof-img' src={this.props.user.user.profile_pic} alt='prof-pic'/> </Link> 
                  <p>{this.props.user.user.username} </p>
-                 <Link to='/dashboard' > Dashboard </Link>
-          <button className="btn-logout" onClick={this.logout}> Logout </button>
+                 <Link to='/dashboard' > <button className='nav-btns'>Dashboard</button>  </Link>
+          <button className="nav-btns" onClick={this.logout}> Logout </button>
     
        
           
@@ -73,7 +73,7 @@ class Nav extends Component {
             <input
               onChange={e => this.handleChange(e, "email")}
               type="text"
-              placeholder="Email"
+              placeholder="Username"
             />
             <input
               onChange={e => this.handleChange(e, "password")}
@@ -93,7 +93,7 @@ class Nav extends Component {
 }
 
 function mapStateToProps(reduxState) {
-  const { user } = reduxState;
+  const { user } = reduxState.reducer
   return { user };
 }
 

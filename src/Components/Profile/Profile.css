@@ -1,0 +1,15 @@
+.profile-info{
+    height: 45vh;
+    width: 45vw;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    margin-left: 100px;
+
+}
+
+.seen{
+    height: 100px;
+    width: 200px;
+    background: linear-gradient(rgb(255, 80, 80), rgb(255, 152, 152));
+    font-size: 20px;
+}

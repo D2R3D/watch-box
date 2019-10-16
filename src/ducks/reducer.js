@@ -1,13 +1,14 @@
+import axios from "axios";
+
 const initialState={
     user: null,
-    username: '',
-    profile_pic: '',
     loggedIn: false
 
 }
 
 const UPDATE_USER='UPDATE_USER'
 const LOGOUT ='LOGOUT'
+const GET_USER='GET_USER'
 
 
 
@@ -29,6 +30,13 @@ export function updateUser (user) {
 export function logout() {
     return {
         type: LOGOUT
+    }
+}
+
+export function getUser() {
+    return {
+        type: GET_USER,
+        payload: axios.get(URL.user).then(res => res.data)
     }
 }
 

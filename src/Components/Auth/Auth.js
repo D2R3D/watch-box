@@ -5,6 +5,11 @@ import { connect } from "react-redux";
 import swal from "sweetalert2";
 import {withRouter} from 'react-router-dom'
 import "./Auth.css";
+import {popularMovies} from '../../ducks/movieReducer'
+import Movies from '../Movies/Movies'
+
+
+
 
 class Auth extends Component {
   constructor(props) {
@@ -13,14 +18,16 @@ class Auth extends Component {
       username: "",
       email: "",
       password1: "",
-      password2: ""
+      password2: "",
+      popularMovies: []
     };
   }
-  handleChange = (e, key) => {
-    this.setState({
-      [key]: e.target.value
-    });
-  };
+ 
+  componentDidMount() {
+    axios.get('http://localhost:4002/api/popularMovies/?results=4').then(res => {
+      this.setState({popularMovies: res.data.results})
+    })
+  }
 
   register = async () => {
     const { username, email, password1, password2 } = this.state;
@@ -40,11 +47,29 @@ class Auth extends Component {
     } else {
       swal.fire({ type: "error", text: "Email already in use" });
     }
+  }
+
+  handleChange = (e, key) => {
+    this.setState({
+      [key]: e.target.value
+    });
   };
 
+
+viewMovie = ()=>  {
+  const url = 'https://www.themoviedb.org/movie/' + this.getMovies(this.props.movie.id)
+  window.location.href = url
+}
+
   render() {
+    const authMovie = this.state.popularMovies.map((movie, index) => {
+      movie.poster_src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path
+      return <Movies key={movie.id} movie ={movie} poster_path ={movie.poster_path}/>
+    })
     return (
+      <div> 
       <div className="register-banner">
+        <p>Prioritize your watch list, if you have little time for movies and shows this app is for you.</p>
         <div className="registration-box">
           <p> Username </p>
           <input
@@ -76,16 +101,21 @@ class Auth extends Component {
 
           <button className='btn-register' onClick={this.register}>Register</button>
         </div>
-        <div></div>
-      </div>
-    );
-  }
+      <div>
+ 
+     </div>
+  </div>
+
+<div className ='pop-movies'>  {authMovie}</div>
+  </div>
+    )}
 }
 function mapStateToProps(reduxState) {
-  const {user} = reduxState;
-  return{user}
+  const {user} = reduxState.reducer
+  const{movies, loading} = reduxState.movieReducer
+  return{user, movies, loading}
 }
 
 export default withRouter(connect(mapStateToProps,
-  { updateUser }
+  { updateUser, popularMovies }
 )(Auth));

@@ -2,5 +2,5 @@
   height: 100vh;
   width: 100vw;
   margin: -5px;
-  background: rgb(117, 16, 16);
+ background-image: linear-gradient(rgb(255, 80, 80), rgb(255, 152, 152));
 }

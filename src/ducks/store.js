@@ -1,8 +1,8 @@
-import {createStore} from 'redux'
+import {createStore, combineReducers} from 'redux'
 import reducer from './reducer'
-// import movieReducer from './movieReducer'
+import movieReducer from './movieReducer'
 
-// const reducers = combineReducers({
-//     reducer,
-// })
-export default createStore(reducer)
+const reducers = combineReducers({
+    reducer, movieReducer
+})
+export default createStore(reducers)

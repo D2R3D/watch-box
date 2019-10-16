@@ -15,7 +15,6 @@ const bcrypt = require('bcryptjs')
     req.session.user = {user}
     res.status(200).send({message: `Welcome back ${username}`, user: req.session.user, loggedIn: true})
 }
-
     const login = async (req, res) => {
         const db = req.app.get('db')
         const {email, password} = req.body
@@ -32,23 +31,31 @@ const bcrypt = require('bcryptjs')
         if(authedPassword) {
             delete foundUser[0].password
             const {username, email} = foundUser[0]
-            const user = foundUser[0]
+            const user= foundUser[0]
             req.session.user = {user}
-            
-            res.status(200).send({message: `welcome ${username}`, user: req.session.user, loggedIn: true})
+            res.status(200).send({message: `welcome back ${username}!`, user: req.session.user, loggedIn: true})
         } else {
             res.status(401).send({message: 'username or password incorrect'})
         }
     }
 
+    
     const logout = (req, res) => {
         req.session.destroy();
         res.status(200).send({message: `Goodbye`,loggedIn: false})
     }
+
+    // const getUser = async (req, res) => {
+    //     const db = req.app.get('db')
+    //     const {user} = req.body
+    //     const confirmUser = await db.find_user(email)
+    //    res.status(200).send(confirmUser)
+    // }
 
 
 module.exports = {
     register,
     login, 
     logout
+    
 }
